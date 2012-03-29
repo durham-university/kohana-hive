@@ -35,9 +35,13 @@ class Hive_Field_DateTime extends Hive_Field_String {
 		}
 		else
 		{
+			if ($this->null)
+			{
+				return null;
+			}
 			$value = date($this->format, strtotime($value));
 		}
-		
+
 		return parent::value($value);
 	}
 } // End Hive_Field_DateTime
