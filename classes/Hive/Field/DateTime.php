@@ -31,7 +31,7 @@ class Hive_Field_DateTime extends Hive_Field_String {
 	{
 		if ($value)
 		{
-			$value = date('Y-m-d', strtotime($value));
+			$value = date('Y-m-d H:i:s', strtotime($value));
 		}
 		else
 		{
