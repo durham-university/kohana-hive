@@ -20,11 +20,6 @@ class Hive_Field_DateTime extends Hive_Field_String {
 	 */
 	public $auto_now_update = FALSE;
 
-	/**
-	 * @var  string  date format for displaying
-	 */
-	public $format = 'd/m/Y H:i';
-
 	public $null = TRUE;
 
 	public function value($value)
@@ -32,14 +27,6 @@ class Hive_Field_DateTime extends Hive_Field_String {
 		if ($value)
 		{
 			$value = date('Y-m-d H:i:s', strtotime($value));
-		}
-		else
-		{
-			if ($this->null)
-			{
-				return null;
-			}
-			$value = date($this->format, strtotime($value));
 		}
 
 		return parent::value($value);
