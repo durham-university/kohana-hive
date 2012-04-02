@@ -26,7 +26,7 @@ class Hive_Field_DateTime extends Hive_Field_Date {
 	{
 		if ($value)
 		{
-			$value = date('Y-m-d H:i:s', strtotime($value));
+			return date('Y-m-d H:i:s', strtotime($value));
 		}
 
 		return parent::value($value);
