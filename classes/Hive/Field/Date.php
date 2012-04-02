@@ -8,7 +8,7 @@
  * @copyright  (c) 2010 Woody Gilk
  * @license    MIT
  */
-class Hive_Field_DateTime extends Hive_Field_Date {
+class Hive_Field_Date extends Hive_Field_String {
 
 	/**
 	 * @var  boolean  set the value to "now" on creation?
@@ -26,10 +26,10 @@ class Hive_Field_DateTime extends Hive_Field_Date {
 	{
 		if ($value)
 		{
-			$value = date('Y-m-d H:i:s', strtotime($value));
+			$value = date('Y-m-d', strtotime($value));
 		}
 
 		return parent::value($value);
 	}
-} // End Hive_Field_DateTime
+} // End Hive_Field_Date
 
