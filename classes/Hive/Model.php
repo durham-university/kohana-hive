@@ -640,9 +640,10 @@ abstract class Hive_Model {
 	 */
 	public function values($values, $clean = FALSE)
 	{
+		$meta = static::meta($this);
 		foreach ($values as $name => $value)
 		{
-			if ($this->__isset($name))
+			if ($this->__isset($name) AND array_key_exists($name, $meta->fields))
 			{
 				$this->__set($name, $value);
 			}
