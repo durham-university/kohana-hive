@@ -933,7 +933,7 @@ abstract class Hive_Model {
 	 *
 	 * @param   string  context to validate within: create, update, etc
 	 * @param   array   external data to validate
-	 * @return  Validate
+	 * @return  Validation
 	 */
 	public function validate($context = NULL, array $data = NULL)
 	{
@@ -964,7 +964,7 @@ abstract class Hive_Model {
 		}
 
 		// Convert the data into a validation object
-		$data = Validate::factory($data);
+		$data = Validation::factory($data);
 
 		foreach ($fields as $field)
 		{
@@ -974,22 +974,11 @@ abstract class Hive_Model {
 				$data->label($field, $meta->labels[$field]);
 			}
 
-			if (isset($meta->filters[$field]))
-			{
-				// Apply the filters for this field
-				$data->filters($field, $meta->filters[$field]);
-			}
-
 			if (isset($meta->rules[$field]))
 			{
+
 				// Apply the rules for this field
 				$data->rules($field, $meta->rules[$field]);
-			}
-
-			if (isset($meta->callbacks[$field]))
-			{
-				// Apply the callbacks for this field
-				$data->callbacks($field, $meta->callbacks[$field]);
 			}
 
 			if (isset($context[$field]))
@@ -1000,22 +989,10 @@ abstract class Hive_Model {
 					$data->label($field, $context[$field]['label']);
 				}
 
-				if (isset($context[$field]['filters']))
-				{
-					// Apply the filters for this field in this context
-					$data->filters($field, $context[$field]['filters']);
-				}
-
 				if (isset($context[$field]['rules']))
 				{
 					// Apply the callbacks for this field in this context
 					$data->rules($field, $context[$field]['rules']);
-				}
-
-				if (isset($context[$field]['callbacks']))
-				{
-					// Apply the callbacks for this field in this context
-					$data->callbacks($field, $context[$field]['callbacks']);
 				}
 			}
 		}

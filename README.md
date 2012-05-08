@@ -41,12 +41,12 @@ All models must declare an `init` method. This method must obtain the meta objec
 
             $meta->rules += array(
                 'email' => array(
-                    'not_empty'  => NULL,
-                    'max_length' => array(127),
-                    'email'      => NULL,
+                    array('not_empty'),
+                    array('max_length', array(':value', 127)),
+                    array('email'),
                 ),
                 'password' => array(
-                    'min_length' => array(5),
+                    array('min_length', array(':value', 5)),
                 ),
             );
 
