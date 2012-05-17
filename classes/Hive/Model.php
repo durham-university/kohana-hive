@@ -435,15 +435,33 @@ abstract class Hive_Model {
 	 *
 	 *     $array = $model->as_array();
 	 *
+	 * @param   $fields Array of field names to include/exclude.
+	 * @param   $inverse Setting to TRUE will exclude fields defined in $fields.
 	 * @return  array
 	 */
-	public function as_array()
+	public function as_array($fields = NULL, $inverse = FALSE)
 	{
-		// Import meta data
-		$meta = static::meta($this);
+		if ($fields === NULL)
+		{
+			// Import meta data
+			$meta = static::meta($this);
 
-		// Get a list of model fields
-		$fields = array_merge(array_keys($meta->fields), array_keys($meta->aliases));
+			// Get a list of model fields
+			$fields = array_merge(array_keys($meta->fields), array_keys($meta->aliases));
+		}
+
+		if ($inverse)
+		{
+			$meta = static::meta($this);
+			$all_fields = array_merge(array_keys($meta->fields), array_keys($meta->aliases));
+			$fields = array_filter($all_fields, function($field) use ($fields) {
+				if (in_array($field, $fields))
+				{
+					return FALSE;
+				}
+				return TRUE;
+			});
+		}
 
 		$array = array();
 
@@ -461,12 +479,14 @@ abstract class Hive_Model {
 	 *
 	 *     $json = $model->as_json();
 	 *
+	 * @param   $fields Array of field names to include/exclude.
+	 * @param   $inverse Setting to TRUE will exclude fields defined in $fields.
 	 * @return  string
 	 * @uses    Hive::as_array
 	 */
-	public function as_json()
+	public function as_json($fields = NULL, $inverse = FALSE)
 	{
-		return json_encode($this->as_array());
+		return json_encode($this->as_array($fields, $inverse));
 	}
 
 	/**
