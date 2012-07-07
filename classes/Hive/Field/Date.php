@@ -20,13 +20,18 @@ class Hive_Field_Date extends Hive_Field_String {
 	 */
 	public $auto_now_update = FALSE;
 
+	/**
+	 * @var  string  date format
+	 */
+	public $format = 'Y-m-d';
+
 	public $null = TRUE;
 
 	public function value($value)
 	{
 		if ($value)
 		{
-			return date('Y-m-d', strtotime($value));
+			return date($this->format, strtotime($value));
 		}
 
 		return parent::value($value);
