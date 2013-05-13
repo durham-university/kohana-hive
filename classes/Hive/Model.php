@@ -929,7 +929,7 @@ abstract class Hive_Model {
 
 		// Convert the query into a sub-query:
 		// SELECT COUNT(*) AS total FROM (SELECT ...) AS results
-		$query = DB::select(array('COUNT("*")', 'total'))
+		$query = DB::select(array(DB::expr('COUNT("*")'), 'total'))
 			->from(array($query, 'results'));
 
 		return $query
