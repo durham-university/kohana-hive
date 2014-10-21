@@ -12,7 +12,7 @@ class Hive_Field_Integer extends Hive_Field {
 
 	public function value($value)
 	{
-		if ( ! $value)
+		if ( ! $value && $value !== '0')
 		{
 			if ($this->null)
 			{
